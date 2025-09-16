@@ -12,18 +12,12 @@ class CustomPasswordField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _PasswordFieldBody(
-      controller: controller,
-      hintText: hintText,
-    );
+    return _PasswordFieldBody(controller: controller, hintText: hintText);
   }
 }
 
 class _PasswordFieldBody extends StatefulWidget {
-  const _PasswordFieldBody({
-    required this.controller,
-    required this.hintText,
-  });
+  const _PasswordFieldBody({required this.controller, required this.hintText});
 
   final TextEditingController controller;
   final String hintText;
@@ -34,7 +28,6 @@ class _PasswordFieldBody extends StatefulWidget {
 
 class _PasswordFieldBodyState extends State<_PasswordFieldBody> {
   late FocusNode _focusNode;
-  bool _isFocused = false;
   bool _obscureText = true;
   String? _errorText;
 
@@ -43,12 +36,8 @@ class _PasswordFieldBodyState extends State<_PasswordFieldBody> {
     super.initState();
     _focusNode = FocusNode();
     _focusNode.addListener(() {
-      setState(() {
-        _isFocused = _focusNode.hasFocus;
-      });
+      setState(() {});
     });
-
-    
   }
 
   @override
