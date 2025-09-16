@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:stylish_demo/core/theme/styles.dart';
 
 /// موديل البيانات لكل عنصر
 class CategoryModel {
@@ -18,7 +19,6 @@ final List<CategoryModel> categories = [
   CategoryModel(image: 'assets/category pic/Womens.png', name: 'Womens'),
 ];
 
-/// Widget لعنصر واحد
 class CategoryItem extends StatelessWidget {
   final CategoryModel category;
   const CategoryItem({super.key, required this.category});
@@ -35,10 +35,7 @@ class CategoryItem extends StatelessWidget {
           width: 56.w,
         ),
         SizedBox(height: 10.h),
-        Text(
-          category.name,
-          style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w400),
-        ),
+        Text(category.name, style: TextStyles.font10w400Black),
         SizedBox(height: 8.h),
       ],
     );
@@ -48,22 +45,31 @@ class CategoryItem extends StatelessWidget {
 /// Widget يعرض كل العناصر في Grid
 class CategoriesGrid extends StatelessWidget {
   const CategoriesGrid({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      padding: EdgeInsets.all(16.w),
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 5,
-        childAspectRatio: .4,
-        crossAxisSpacing: 8.r,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10.r),
+          bottomLeft: Radius.circular(10.r),
+        ),
       ),
-      itemCount: categories.length,
-      itemBuilder: (context, index) {
-        return CategoryItem(category: categories[index]);
-      },
+      child: GridView.builder(
+        padding: EdgeInsets.all(16.w),
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 5,
+          childAspectRatio: .6,
+          crossAxisSpacing: 8.r,
+        ),
+        itemCount: categories.length,
+        itemBuilder: (context, index) {
+          return CategoryItem(category: categories[index]);
+        },
+      ),
     );
   }
 }
