@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stylish_demo/core/routing/routs.dart';
 import 'package:stylish_demo/fetuers/Splash_Screen/splash_screen.dart';
-import 'package:stylish_demo/fetuers/home/ui/widgets/home_screen.dart';
+import 'package:stylish_demo/fetuers/home/ui/screen/home_screen.dart';
 import 'package:stylish_demo/fetuers/onbordingpages/on_boarding_page.dart';
 import 'package:stylish_demo/fetuers/signin_signup/pages/creat_account_page.dart';
 import 'package:stylish_demo/fetuers/signin_signup/pages/login_page.dart';
