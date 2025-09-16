@@ -17,4 +17,24 @@ class TextStyles {
     fontWeight: FontWeight.w400,
     color: Colors.black,
   );
+  static const TextStyle font10w400Black = TextStyle(
+    fontSize: 10,
+    fontWeight: FontWeight.w400,
+    color: Colors.black,
+  );
+  static const TextStyle font20w700white = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    color: Colors.white,
+  );
+  static const TextStyle font12w400white = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: Colors.white,
+  );
+  static const TextStyle font16w500white = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: Colors.white,
+  );
 }
