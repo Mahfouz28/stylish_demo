@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:stylish_demo/core/helpers/extintions.dart';
+import 'package:stylish_demo/core/routing/routs.dart';
 import 'package:stylish_demo/core/theme/styles.dart';
 
 class NewArrivals extends StatelessWidget {
@@ -48,7 +50,9 @@ class NewArrivals extends StatelessWidget {
                           ),
                           padding: EdgeInsets.zero,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          context.pushNamed(Routes.viweAllProductsScreen);
+                        },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

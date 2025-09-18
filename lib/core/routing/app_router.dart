@@ -7,6 +7,8 @@ import 'package:stylish_demo/fetuers/home/data/repo/product_repo.dart';
 import 'package:stylish_demo/fetuers/home/ui/screen/home_screen.dart';
 import 'package:stylish_demo/fetuers/onbordingpages/on_boarding_page.dart';
 import 'package:stylish_demo/fetuers/signin_signup/pages/creat_account_page.dart';
+import 'package:stylish_demo/fetuers/viwe_all_products/logic/cubit/product_cubit.dart';
+import 'package:stylish_demo/fetuers/viwe_all_products/ui/screen/viwe_all_products_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:stylish_demo/fetuers/signin_signup/pages/login_page.dart';
 import 'package:stylish_demo/fetuers/started_page/page/started_page.dart';
@@ -16,6 +18,15 @@ class AppRouter {
     switch (settings.name) {
       case Routes.onboarding:
         return MaterialPageRoute(builder: (_) => OnboardingPage());
+      case Routes.viweAllProductsScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                ProductCubit(ProductRepository(Supabase.instance.client))
+                  ..fetchProducts(),
+            child: ViweAllProductsScreen(),
+          ),
+        );
       case Routes.loginScreen:
         return MaterialPageRoute(builder: (_) => LoginPage());
       case Routes.registerScreen:

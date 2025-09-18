@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:stylish_demo/core/helpers/extintions.dart';
+import 'package:stylish_demo/core/routing/routs.dart';
 import 'package:stylish_demo/core/theme/styles.dart';
 
 class Sponserd extends StatelessWidget {
@@ -37,7 +39,9 @@ class Sponserd extends StatelessWidget {
               children: [
                 Text('up to 50% Off', style: TextStyles.font16w700Black),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.pushNamed(Routes.viweAllProductsScreen);
+                  },
                   icon: Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.black,

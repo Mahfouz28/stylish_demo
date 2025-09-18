@@ -4,13 +4,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:stylish_demo/core/theme/styles.dart';
 
 class SortAndFilter extends StatelessWidget {
-  const SortAndFilter({super.key});
+  final String text;
+  const SortAndFilter({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text('All Featured', style: TextStyles.font18w600Black),
+        Text(text, style: TextStyles.font18w600Black),
         Spacer(),
 
         SizedBox(
