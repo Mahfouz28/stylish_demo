@@ -40,7 +40,7 @@ class TreandingShopingCard extends StatelessWidget {
             height: 100.h,
             child: ClipRRect(
               borderRadius: BorderRadiusGeometry.circular(4.r),
-              child: Image.asset(image),
+              child: Image.network(image),
             ),
           ),
           8.verticalSpace,

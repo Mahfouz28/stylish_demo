@@ -9,7 +9,7 @@ class NavBar extends StatelessWidget {
 
   final List<IconData> icons = const [
     Icons.home,
-    Icons.favorite,
+    Icons.favorite_border,
     Icons.shopping_cart,
     Icons.search_sharp,
     Icons.settings,
