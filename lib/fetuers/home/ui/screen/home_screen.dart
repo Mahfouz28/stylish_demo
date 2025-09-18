@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:stylish_demo/core/theme/appcolors.dart';
@@ -7,7 +8,7 @@ import 'package:stylish_demo/core/theme/styles.dart';
 
 import 'package:stylish_demo/core/widgets/app_home_screen_bar.dart';
 import 'package:stylish_demo/core/widgets/app_text_form_Field.dart';
-import 'package:stylish_demo/fetuers/home/data/models/product_model.dart';
+import 'package:stylish_demo/fetuers/home/logic/cubit/home_cubit.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/catigory.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/flat_and_heals_banner.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/nav_bar.dart';
@@ -39,18 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
       PageController(); // للتحكم في الـ PageView
   int _currentIndex = 0; // الفهرس الحالي للبنر
   Timer? _timer; // عشان نعمل auto slide للبنر
-  final List<String> shopingImages = [
-    'assets/shoping images/shose.png',
-    'assets/shoping images/girl.png',
-  ];
-  final List<String> shopingTitels = [
-    'HRX by Hrithik Roshan',
-    'Women Printed Kurta',
-  ];
-  final List<String> prices = ['2499', '1500'];
-  final List<String> oldPrices = ['4999', '2499'];
-  final List<String> discounts = ['50', '40'];
-  final List<String> numberOfReviews = ['35235', '42000'];
 
   /// صور البنرات (slider)
   final List<String> banners = [
@@ -73,6 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       }
     });
+
+    // Fetch products from supabase
+    context.read<HomeCubit>().fetchProducts();
   }
 
   @override
@@ -234,25 +226,41 @@ class _HomeScreenState extends State<HomeScreen> {
                       // shoping card
                       SizedBox(
                         height: 250,
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (BuildContext context, int index) {
-                            return DealOfTheDayShopingCard(
-                              image: dealOFTheDayProducts[index].image,
-                              title: dealOFTheDayProducts[index].title,
-                              description:
-                                  dealOFTheDayProducts[index].description,
-                              price: dealOFTheDayProducts[index].price,
-                              oldPrice: dealOFTheDayProducts[index].oldPrice,
-                              discount: dealOFTheDayProducts[index].discount,
-                              numberOfReview:
-                                  dealOFTheDayProducts[index].numberOfReviews,
-                            );
+                        child: BlocBuilder<HomeCubit, HomeState>(
+                          builder: (context, state) {
+                            if (state is HomeProductsLoading) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else if (state is HomeProductsSuccessState) {
+                              final products = state.products;
+                              return ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return DealOfTheDayShopingCard(
+                                    image: products[index].image,
+                                    title: products[index].title,
+                                    description: products[index].description,
+                                    price: products[index].price,
+                                    oldPrice: products[index].oldPrice,
+                                    discount: products[index].discount,
+                                    numberOfReview:
+                                        products[index].numberOfReviews,
+                                  );
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, int index) {
+                                      return SizedBox(width: 12.w);
+                                    },
+                                itemCount: 4,
+                              );
+                            } else if (state is HomeProductsFailure) {
+                              return Center(
+                                child: Text('Error: ${state.error}'),
+                              );
+                            }
+                            return const SizedBox.shrink(); // Fallback for initial state or other states
                           },
-                          separatorBuilder: (BuildContext context, int index) {
-                            return SizedBox(width: 12.w);
-                          },
-                          itemCount: dealOFTheDayProducts.length,
                         ),
                       ),
                       16.horizontalSpace,
@@ -276,24 +284,52 @@ class _HomeScreenState extends State<HomeScreen> {
                       16.verticalSpace,
                       SizedBox(
                         height: 189.h,
-                        child: ListView.separated(
-                          itemBuilder: (BuildContext context, index) {
-                            return TreandingShopingCard(
-                              image: trendingProducts[index].image,
-                              title: trendingProducts[index].title,
-                              description: trendingProducts[index].description,
-                              price: trendingProducts[index].price,
-                              oldPrice: trendingProducts[index].oldPrice,
-                              discount: trendingProducts[index].discount,
-                            );
+                        child: BlocBuilder<HomeCubit, HomeState>(
+                          builder: (context, state) {
+                            if (state is HomeProductsLoading) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else if (state is HomeProductsSuccessState) {
+                              final products = state.products;
+
+                              if (products.length <= 3) {
+                                return const Center(
+                                  child: Text("No Trending Products Available"),
+                                );
+                              }
+
+                              return ListView.separated(
+                                itemBuilder: (BuildContext context, int index) {
+                                  final product =
+                                      products[index +
+                                          4]; // يبدأ بعد أول 3 عناصر
+                                  return TreandingShopingCard(
+                                    image: product.image,
+                                    title: product.title,
+                                    description: product.description,
+                                    price: product.price,
+                                    oldPrice: product.oldPrice,
+                                    discount: product.discount,
+                                  );
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, index) {
+                                      return SizedBox(width: 8.w);
+                                    },
+                                itemCount: products.length - 4, // هنا صح
+                                scrollDirection: Axis.horizontal,
+                              );
+                            } else if (state is HomeProductsFailure) {
+                              return Center(
+                                child: Text("Error: ${state.error}"),
+                              );
+                            }
+                            return const SizedBox.shrink();
                           },
-                          separatorBuilder: (BuildContext context, index) {
-                            return SizedBox(width: 8.w);
-                          },
-                          itemCount: trendingProducts.length,
-                          scrollDirection: Axis.horizontal,
                         ),
                       ),
+
                       16.verticalSpace,
 
                       /// 🆕 New Arrivals Section

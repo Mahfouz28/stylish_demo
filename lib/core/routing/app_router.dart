@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stylish_demo/core/routing/routs.dart';
 import 'package:stylish_demo/fetuers/Splash_Screen/splash_screen.dart';
+import 'package:stylish_demo/fetuers/home/logic/cubit/home_cubit.dart';
+import 'package:stylish_demo/fetuers/home/data/repo/product_repo.dart';
 import 'package:stylish_demo/fetuers/home/ui/screen/home_screen.dart';
 import 'package:stylish_demo/fetuers/onbordingpages/on_boarding_page.dart';
 import 'package:stylish_demo/fetuers/signin_signup/pages/creat_account_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:stylish_demo/fetuers/signin_signup/pages/login_page.dart';
 import 'package:stylish_demo/fetuers/started_page/page/started_page.dart';
 
@@ -19,7 +23,16 @@ class AppRouter {
       case Routes.startedPage:
         return MaterialPageRoute(builder: (_) => StartedPage());
       case Routes.homeScreen:
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+        return MaterialPageRoute(
+          builder: (_) => RepositoryProvider<ProductRepository>(
+            create: (context) => ProductRepository(Supabase.instance.client),
+            child: BlocProvider(
+              create: (context) => HomeCubit(context.read<ProductRepository>()),
+              child: HomeScreen(),
+            ),
+          ),
+        );
+
       case Routes.splashScreen:
         return MaterialPageRoute(builder: (_) => SplashScreen());
       default:
