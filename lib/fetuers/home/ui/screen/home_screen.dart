@@ -9,6 +9,7 @@ import 'package:stylish_demo/core/widgets/app_home_screen_bar.dart';
 import 'package:stylish_demo/core/widgets/app_text_form_Field.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/catigory.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/flat_and_heals_banner.dart';
+import 'package:stylish_demo/fetuers/home/ui/widgets/nav_bar.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/new_arrivals.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/remainder_card.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/sort_and_filter.dart';
@@ -24,6 +25,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int navIndex = 0;
+  void onItemTapped(int index) {
+    setState(() {
+      navIndex = index;
+    });
+  }
+
   final PageController _pageController =
       PageController(); // للتحكم في الـ PageView
   int _currentIndex = 0; // الفهرس الحالي للبنر
@@ -54,18 +62,33 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    _pageController.dispose(); // غلق الـ controller
-    _timer?.cancel(); // إيقاف المؤقت
+    _pageController.dispose();
+    _timer?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(),
+        onPressed: () {
+          onItemTapped(2);
+        },
+
+        backgroundColor: Colors.white,
+        elevation: 4,
+
+        child: Icon(
+          Icons.shopping_cart_outlined,
+          color: navIndex == 2 ? const Color(0xffEB3030) : Colors.black,
+          size: 24.sp,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: NavBar(currentIndex: navIndex, onTap: onItemTapped),
       body: SafeArea(
-        // لحماية المحتوى من مناطق الـ notch
         child: SingleChildScrollView(
-          // عشان نعمل scroll للصفحة كلها
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
