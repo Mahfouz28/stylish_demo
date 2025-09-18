@@ -22,6 +22,21 @@ class TextStyles {
     fontWeight: FontWeight.w400,
     color: Colors.black,
   );
+  static const TextStyle font10w400lightGray = TextStyle(
+    fontSize: 10,
+    fontWeight: FontWeight.w400,
+    color: AppColors.lighGray,
+  );
+  static const TextStyle font16w400Black = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: Colors.black,
+  );
+  static const TextStyle font16w700Black = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+    color: Colors.black,
+  );
   static const TextStyle font20w700white = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w700,
@@ -56,5 +71,25 @@ class TextStyles {
     fontSize: 12,
     fontWeight: FontWeight.w500,
     color: Colors.white,
+  );
+  static const TextStyle font12w500Black = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
+  );
+  static const TextStyle font20w500black = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
+  );
+  static const TextStyle font12w500BLightGray = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    color: AppColors.lighGray,
+  );
+  static const TextStyle font10w400LightRed = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    color: AppColors.lightRed,
   );
 }
