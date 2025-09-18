@@ -1,5 +1,5 @@
 class Product {
-  final String image;
+  final String image; // Public/Signed URL من Supabase
   final String title;
   final String description;
   final String price;
@@ -16,6 +16,32 @@ class Product {
     required this.discount,
     required this.numberOfReviews,
   });
+
+  // تحويل من JSON (مثلاً جاي من Supabase)
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      image: json['image'] ?? '',
+      title: json['title'] ?? '',
+      description: json['description'] ?? '',
+      price: json['price'] ?? '',
+      oldPrice: json['old_price'] ?? '',
+      discount: json['discount'] ?? '',
+      numberOfReviews: json['number_of_reviews'] ?? '',
+    );
+  }
+
+  // تحويل لـ JSON (قبل الإرسال لجدول Supabase)
+  Map<String, dynamic> toJson() {
+    return {
+      'image': image,
+      'title': title,
+      'description': description,
+      'price': price,
+      'old_price': oldPrice,
+      'discount': discount,
+      'number_of_reviews': numberOfReviews,
+    };
+  }
 }
 
 // trinding proudacts

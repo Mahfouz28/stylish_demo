@@ -1,13 +1,16 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:stylish_demo/fetuers/home/data/models/product_model.dart';
+import 'package:stylish_demo/fetuers/home/data/repo/product_repo.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   Timer? _timer;
 
-  HomeCubit() : super(HomeInitial());
+  final ProductRepository productRepository;
+
+  HomeCubit(this.productRepository) : super(HomeInitial());
 
   final List<String> _images = [
     'assets/images/Rectangle 48.png',
@@ -41,5 +44,16 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> close() {
     _timer?.cancel();
     return super.close();
+  }
+
+  Future<void> fetchProducts() async {
+    emit(HomeProductsLoading());
+    try {
+      final products = await productRepository
+          .fetchProducts(); // رجّع اللي من repo
+      emit(HomeProductsSuccessState(products)); // ابعته للـ state
+    } catch (e) {
+      emit(HomeProductsFailure(error: e.toString()));
+    }
   }
 }
