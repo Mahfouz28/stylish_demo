@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:stylish_demo/core/theme/appcolors.dart';
 import 'package:stylish_demo/core/theme/styles.dart';
@@ -10,9 +9,11 @@ import 'package:stylish_demo/core/widgets/app_home_screen_bar.dart';
 import 'package:stylish_demo/core/widgets/app_text_form_Field.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/catigory.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/flat_and_heals_banner.dart';
+import 'package:stylish_demo/fetuers/home/ui/widgets/new_arrivals.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/remainder_card.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/sort_and_filter.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/spcial_offer.dart';
+import 'package:stylish_demo/fetuers/home/ui/widgets/sponserd.dart';
 
 /// 🏠 Home Screen
 class HomeScreen extends StatefulWidget {
@@ -191,6 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         icon: Icons.alarm,
                         color: Color(0xff4392F9),
                       ),
+                      16.verticalSpace,
 
                       /// 🏷️ Special Offers Section
                       SpcialOffer(),
@@ -207,6 +209,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         icon: Icons.date_range_outlined,
                         color: AppColors.pink,
                       ),
+                      16.verticalSpace,
+
+                      /// 🆕 New Arrivals Section
+                      NewArrivals(),
+                      16.verticalSpace,
+                      // Sponerd Section
+                      Sponserd(),
                     ],
                   ),
                 ),
