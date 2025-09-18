@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:stylish_demo/core/theme/appcolors.dart';
@@ -8,6 +9,7 @@ import 'package:stylish_demo/core/theme/styles.dart';
 import 'package:stylish_demo/core/widgets/app_home_screen_bar.dart';
 import 'package:stylish_demo/core/widgets/app_text_form_Field.dart';
 import 'package:stylish_demo/fetuers/home/data/models/product_model.dart';
+import 'package:stylish_demo/fetuers/home/logic/cubit/home_cubit.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/catigory.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/flat_and_heals_banner.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/nav_bar.dart';
@@ -73,6 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       }
     });
+
+    // Fetch products from supabase
+    context.read<HomeCubit>().fetchProducts();
   }
 
   @override
@@ -234,25 +239,41 @@ class _HomeScreenState extends State<HomeScreen> {
                       // shoping card
                       SizedBox(
                         height: 250,
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (BuildContext context, int index) {
-                            return DealOfTheDayShopingCard(
-                              image: dealOFTheDayProducts[index].image,
-                              title: dealOFTheDayProducts[index].title,
-                              description:
-                                  dealOFTheDayProducts[index].description,
-                              price: dealOFTheDayProducts[index].price,
-                              oldPrice: dealOFTheDayProducts[index].oldPrice,
-                              discount: dealOFTheDayProducts[index].discount,
-                              numberOfReview:
-                                  dealOFTheDayProducts[index].numberOfReviews,
-                            );
+                        child: BlocBuilder<HomeCubit, HomeState>(
+                          builder: (context, state) {
+                            if (state is HomeProductsLoading) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else if (state is HomeProductsSuccessState) {
+                              final products = state.products;
+                              return ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return DealOfTheDayShopingCard(
+                                    image: products[index].image,
+                                    title: products[index].title,
+                                    description: products[index].description,
+                                    price: products[index].price,
+                                    oldPrice: products[index].oldPrice,
+                                    discount: products[index].discount,
+                                    numberOfReview:
+                                        products[index].numberOfReviews,
+                                  );
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, int index) {
+                                      return SizedBox(width: 12.w);
+                                    },
+                                itemCount: products.length,
+                              );
+                            } else if (state is HomeProductsFailure) {
+                              return Center(
+                                child: Text('Error: ${state.error}'),
+                              );
+                            }
+                            return const SizedBox.shrink(); // Fallback for initial state or other states
                           },
-                          separatorBuilder: (BuildContext context, int index) {
-                            return SizedBox(width: 12.w);
-                          },
-                          itemCount: dealOFTheDayProducts.length,
                         ),
                       ),
                       16.horizontalSpace,

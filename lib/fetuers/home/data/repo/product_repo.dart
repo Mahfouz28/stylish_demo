@@ -8,7 +8,7 @@ class ProductRepository {
     final product = await clint
         .from('products')
         .select()
-        .order('titel', ascending: true);
+        .order('title', ascending: true);
 
     return (product as List)
         .map(

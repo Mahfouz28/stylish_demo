@@ -40,7 +40,7 @@ class DealOfTheDayShopingCard extends StatelessWidget {
             height: 124.h,
             child: ClipRRect(
               borderRadius: BorderRadiusGeometry.circular(4.r),
-              child: Image.asset(image),
+              child: Image.network(image),
             ),
           ),
           8.verticalSpace,
