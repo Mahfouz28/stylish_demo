@@ -71,7 +71,7 @@ class FlatAndHealsBanner extends StatelessWidget {
           /// زر Visit Now
           Positioned(
             right: 12,
-            bottom: 55,
+            top: 84,
             child: SizedBox(
               width: 93,
               height: 28.h,

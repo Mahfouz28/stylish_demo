@@ -41,6 +41,7 @@ dependencies:
   flutter_native_splash: ^2.4.6
   flutter_svg: ^2.2.1
   bloc: ^9.0.0
+  animated_rating_stars: ^1.0.1
 
 
 dev_dependencies:
@@ -70,7 +71,7 @@ flutter:
      - assets/images/
      - assets/svg/
      - assets/category pic/ 
-     - assets/images/Rectangle 48.png
+     - assets/shoping images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
