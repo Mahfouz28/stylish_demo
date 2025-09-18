@@ -116,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       16.verticalSpace,
 
                       /// ↕️ Sort & Filter Section
-                      SortAndFilter(),
+                      SortAndFilter(text: 'All Featured'),
                       16.verticalSpace,
 
                       /// 🗂️ Categories Section

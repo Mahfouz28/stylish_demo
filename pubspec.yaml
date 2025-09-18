@@ -44,6 +44,9 @@ dependencies:
   animated_rating_stars: ^1.0.1
   supabase: ^2.9.1
   supabase_flutter: ^2.10.1
+  card_loading: ^0.3.2
+  cached_network_image: ^3.4.1
+  flutter_staggered_grid_view: ^0.7.0
 
 
 dev_dependencies:
@@ -73,7 +76,7 @@ flutter:
      - assets/images/
      - assets/svg/
      - assets/category pic/ 
-     - assets/shoping images/
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
