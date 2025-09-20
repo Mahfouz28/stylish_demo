@@ -7,6 +7,7 @@ import 'package:stylish_demo/fetuers/home/logic/cubit/home_cubit.dart';
 import 'package:stylish_demo/fetuers/home/data/repo/product_repo.dart';
 import 'package:stylish_demo/fetuers/home/ui/screen/home_screen.dart';
 import 'package:stylish_demo/fetuers/onbordingpages/on_boarding_page.dart';
+import 'package:stylish_demo/fetuers/profile/ui/screen/profile_screen.dart';
 import 'package:stylish_demo/fetuers/shop/ui/screen/shop_page_screen.dart';
 import 'package:stylish_demo/fetuers/signin_signup/pages/creat_account_page.dart';
 import 'package:stylish_demo/fetuers/viwe_all_products/logic/cubit/product_cubit.dart';
@@ -40,6 +41,9 @@ class AppRouter {
             child: ShopPageScreen(product: product),
           ),
         );
+
+      case Routes.profileScreen:
+        return MaterialPageRoute(builder: (_) => ProfileScreen());
 
       case Routes.loginScreen:
         return MaterialPageRoute(builder: (_) => LoginPage());
