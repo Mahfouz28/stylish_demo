@@ -21,9 +21,10 @@ class SizeSelectorState extends State<SizeSelector> {
       children: [
         Align(
           alignment: AlignmentGeometry.centerLeft,
-          child:
-              /// النص اللي بيتغير حسب الاختيار
-              Text('Size : ${options[tag]}', style: TextStyles.font16w500black),
+          child: Text(
+            'Size : ${options[tag]}',
+            style: TextStyles.font16w500black,
+          ),
         ),
         10.verticalSpace,
         ChipsChoice<int>.single(

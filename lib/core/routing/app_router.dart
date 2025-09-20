@@ -33,7 +33,12 @@ class AppRouter {
       case Routes.shopPageScreen:
         final product = settings.arguments as Product;
         return MaterialPageRoute(
-          builder: (_) => ShopPageScreen(product: product),
+          builder: (_) => BlocProvider<ProductCubit>(
+            create: (context) =>
+                ProductCubit(ProductRepository(Supabase.instance.client))
+                  ..fetchProducts(),
+            child: ShopPageScreen(product: product),
+          ),
         );
 
       case Routes.loginScreen:
