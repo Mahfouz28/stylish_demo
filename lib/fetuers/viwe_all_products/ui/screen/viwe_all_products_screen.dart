@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:stylish_demo/core/helpers/extintions.dart';
+import 'package:stylish_demo/core/routing/routs.dart';
 import 'package:stylish_demo/core/widgets/app_home_screen_bar.dart';
 import 'package:stylish_demo/core/widgets/app_text_form_Field.dart';
 import 'package:stylish_demo/core/widgets/shoping_card.dart';
@@ -94,14 +96,23 @@ class _ViweAllProductsScreenState extends State<ViweAllProductsScreen> {
                       crossAxisSpacing: 12.w,
                       itemCount: products.length,
                       itemBuilder: (context, index) {
-                        return ShopingCard(
-                          image: products[index].image,
-                          title: products[index].title,
-                          description: products[index].description,
-                          price: products[index].price,
-                          oldPrice: products[index].oldPrice,
-                          discount: products[index].discount,
-                          numberOfReview: products[index].numberOfReviews,
+                        return GestureDetector(
+                          onTap: () {
+                            context.pushNamed(
+                              Routes.shopPageScreen,
+                              arguments: products[index],
+                            );
+                          },
+
+                          child: ShopingCard(
+                            image: products[index].image,
+                            title: products[index].title,
+                            description: products[index].description,
+                            price: products[index].price,
+                            oldPrice: products[index].oldPrice,
+                            discount: products[index].discount,
+                            numberOfReview: products[index].numberOfReviews,
+                          ),
                         );
                       },
                     );
