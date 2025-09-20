@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:stylish_demo/core/helpers/extintions.dart';
+import 'package:stylish_demo/core/routing/routs.dart';
 
 class AppHomeScreenBar extends StatelessWidget {
   const AppHomeScreenBar({super.key});
@@ -22,10 +24,15 @@ class AppHomeScreenBar extends StatelessWidget {
             ),
           ),
           SvgPicture.asset('assets/svg/logoipsum-255 1.svg'),
-          Image.asset(
-            'assets/images/apbaravatar.png',
-            width: 40.w,
-            height: 40.h,
+          GestureDetector(
+            onTap: () {
+              context.pushNamed(Routes.profileScreen);
+            },
+            child: Image.asset(
+              'assets/images/apbaravatar.png',
+              width: 40.w,
+              height: 40.h,
+            ),
           ),
         ],
       ),
