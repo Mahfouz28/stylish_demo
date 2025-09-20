@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stylish_demo/core/routing/routs.dart';
 import 'package:stylish_demo/fetuers/Splash_Screen/splash_screen.dart';
+import 'package:stylish_demo/fetuers/home/data/models/product_model.dart';
 import 'package:stylish_demo/fetuers/home/logic/cubit/home_cubit.dart';
 import 'package:stylish_demo/fetuers/home/data/repo/product_repo.dart';
 import 'package:stylish_demo/fetuers/home/ui/screen/home_screen.dart';
 import 'package:stylish_demo/fetuers/onbordingpages/on_boarding_page.dart';
+import 'package:stylish_demo/fetuers/shop/ui/screen/shop_page_screen.dart';
 import 'package:stylish_demo/fetuers/signin_signup/pages/creat_account_page.dart';
 import 'package:stylish_demo/fetuers/viwe_all_products/logic/cubit/product_cubit.dart';
 import 'package:stylish_demo/fetuers/viwe_all_products/ui/screen/viwe_all_products_screen.dart';
@@ -27,6 +29,13 @@ class AppRouter {
             child: ViweAllProductsScreen(),
           ),
         );
+
+      case Routes.shopPageScreen:
+        final product = settings.arguments as Product;
+        return MaterialPageRoute(
+          builder: (_) => ShopPageScreen(product: product),
+        );
+
       case Routes.loginScreen:
         return MaterialPageRoute(builder: (_) => LoginPage());
       case Routes.registerScreen:

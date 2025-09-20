@@ -17,6 +17,11 @@ class TextStyles {
     fontWeight: FontWeight.w400,
     color: Colors.black,
   );
+  static const TextStyle font20w600Black = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    color: Colors.black,
+  );
   static const TextStyle font10w400Black = TextStyle(
     fontSize: 10,
     fontWeight: FontWeight.w400,
@@ -51,6 +56,11 @@ class TextStyles {
     fontSize: 16,
     fontWeight: FontWeight.w500,
     color: Colors.white,
+  );
+  static const TextStyle font16w500Pink = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: AppColors.pink,
   );
   static const TextStyle font16w500black = TextStyle(
     fontSize: 16,
