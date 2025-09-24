@@ -8,6 +8,7 @@ import 'package:stylish_demo/fetuers/home/logic/cubit/home_cubit.dart';
 import 'package:stylish_demo/fetuers/home/data/repo/product_repo.dart';
 import 'package:stylish_demo/fetuers/home/ui/screen/home_screen.dart';
 import 'package:stylish_demo/fetuers/onbordingpages/on_boarding_page.dart';
+import 'package:stylish_demo/fetuers/payment/ui/screen/payment_screen.dart';
 import 'package:stylish_demo/fetuers/profile/ui/screen/profile_screen.dart';
 import 'package:stylish_demo/fetuers/shop/ui/screen/shop_page_screen.dart';
 import 'package:stylish_demo/fetuers/signin_signup/pages/creat_account_page.dart';
@@ -36,6 +37,16 @@ class AppRouter {
         final product = settings.arguments as Product;
         return MaterialPageRoute(
           builder: (_) => CheckOutScreen(product: product),
+        );
+
+      case Routes.paymentScreen:
+        final args = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => PaymentScreen(
+            product: args['product'] as Product,
+            total: args['total'] as double,
+            quantity: args['quantity'] as int,
+          ),
         );
 
       case Routes.shopPageScreen:
