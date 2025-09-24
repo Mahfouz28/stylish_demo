@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stylish_demo/core/routing/routs.dart';
 import 'package:stylish_demo/fetuers/Splash_Screen/splash_screen.dart';
+import 'package:stylish_demo/fetuers/cart/ui/screen/cart_screen.dart';
 import 'package:stylish_demo/fetuers/checkout/ui/screen/check_out_screen.dart';
 import 'package:stylish_demo/fetuers/home/data/models/product_model.dart';
 import 'package:stylish_demo/fetuers/home/logic/cubit/home_cubit.dart';
 import 'package:stylish_demo/fetuers/home/data/repo/product_repo.dart';
 import 'package:stylish_demo/fetuers/home/ui/screen/home_screen.dart';
 import 'package:stylish_demo/fetuers/onbordingpages/on_boarding_page.dart';
+import 'package:stylish_demo/fetuers/payment/ui/screen/payment_screen.dart';
 import 'package:stylish_demo/fetuers/profile/ui/screen/profile_screen.dart';
 import 'package:stylish_demo/fetuers/shop/ui/screen/shop_page_screen.dart';
 import 'package:stylish_demo/fetuers/signin_signup/pages/creat_account_page.dart';
@@ -38,6 +40,16 @@ class AppRouter {
           builder: (_) => CheckOutScreen(product: product),
         );
 
+      case Routes.paymentScreen:
+        final args = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => PaymentScreen(
+            product: args['product'] as Product,
+            total: args['total'] as double,
+            quantity: args['quantity'] as int,
+          ),
+        );
+
       case Routes.shopPageScreen:
         final product = settings.arguments as Product;
         return MaterialPageRoute(
@@ -48,6 +60,10 @@ class AppRouter {
             child: ShopPageScreen(product: product),
           ),
         );
+
+      case Routes.cartScreen:
+        final cart = settings.arguments as List<Product>;
+        return MaterialPageRoute(builder: (_) => CartScreen(cart: cart));
 
       case Routes.profileScreen:
         return MaterialPageRoute(builder: (_) => ProfileScreen());
