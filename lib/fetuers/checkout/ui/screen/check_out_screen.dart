@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:stylish_demo/core/helpers/extintions.dart';
+import 'package:stylish_demo/core/routing/routs.dart';
 import 'package:stylish_demo/core/theme/appcolors.dart';
 import 'package:stylish_demo/core/theme/styles.dart';
 
@@ -34,7 +36,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 product: widget.product!,
                 onQuantityChanged: (q) {
                   setState(() {
-                    _quantity = q; // أو ابعتها للـ OrderDetails
+                    _quantity = q;
                   });
                 },
               ),
@@ -46,10 +48,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               35.verticalSpace,
               Column(
                 children: [
-                  OrderDetails(
-                    product: widget.product!,
-                    quantity: _quantity, // هنا تبعتها
-                  ),
+                  OrderDetails(product: widget.product!, quantity: _quantity),
                 ],
               ),
 
@@ -58,7 +57,20 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 width: double.infinity,
                 height: 50.h,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    final total =
+                        double.parse(widget.product!.price) * _quantity;
+
+                    context.pushNamed(
+                      Routes.paymentScreen,
+                      arguments: {
+                        'product': widget.product,
+                        'quantity': _quantity,
+                        'total': total,
+                      },
+                    );
+                  },
+
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.kPrimaryColor,
                     shape: RoundedRectangleBorder(

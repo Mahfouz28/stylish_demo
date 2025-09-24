@@ -9,4 +9,5 @@ class Routes {
   static const String viweAllProductsScreen = '/viweAllProductsScreen';
   static const String shopPageScreen = '/shopPageScreen';
   static const String checkoutScreen = '/checkoutScreen';
+  static const String paymentScreen = '/paymentScreen';
 }
