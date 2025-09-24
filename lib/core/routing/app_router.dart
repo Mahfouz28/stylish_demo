@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stylish_demo/core/routing/routs.dart';
 import 'package:stylish_demo/fetuers/Splash_Screen/splash_screen.dart';
+import 'package:stylish_demo/fetuers/checkout/ui/screen/check_out_screen.dart';
 import 'package:stylish_demo/fetuers/home/data/models/product_model.dart';
 import 'package:stylish_demo/fetuers/home/logic/cubit/home_cubit.dart';
 import 'package:stylish_demo/fetuers/home/data/repo/product_repo.dart';
@@ -29,6 +30,12 @@ class AppRouter {
                   ..fetchProducts(),
             child: ViweAllProductsScreen(),
           ),
+        );
+
+      case Routes.checkoutScreen:
+        final product = settings.arguments as Product;
+        return MaterialPageRoute(
+          builder: (_) => CheckOutScreen(product: product),
         );
 
       case Routes.shopPageScreen:

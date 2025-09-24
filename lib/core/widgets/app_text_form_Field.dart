@@ -45,8 +45,8 @@ class AppTextFormField extends StatelessWidget {
         keyboardType: keyboardType,
         validator: validator,
         decoration: InputDecoration(
-          prefixIconColor: AppColors.lighGray,
-          suffixIconColor: AppColors.lighGray,
+          prefixIconColor: AppColors.lightGray,
+          suffixIconColor: AppColors.lightGray,
           hintStyle: TextStyles.font24w400LightGray,
           filled: true,
           fillColor: Colors.white,

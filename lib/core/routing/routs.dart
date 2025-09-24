@@ -8,4 +8,5 @@ class Routes {
   static const String splashScreen = '/splashScreen';
   static const String viweAllProductsScreen = '/viweAllProductsScreen';
   static const String shopPageScreen = '/shopPageScreen';
+  static const String checkoutScreen = '/checkoutScreen';
 }

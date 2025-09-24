@@ -72,6 +72,12 @@ class _ShopPageScreenState extends State<ShopPageScreen> {
                       ),
                     ),
                     GestureDetector(
+                      onTap: () {
+                        context.pushNamed(
+                          Routes.checkoutScreen,
+                          arguments: widget.product,
+                        );
+                      },
                       child: CustomBottons(
                         icon: Icons.sell_outlined,
                         color1: Color(0xff71F9A9),
