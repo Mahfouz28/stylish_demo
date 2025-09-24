@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:stylish_demo/core/helpers/extintions.dart';
+import 'package:stylish_demo/core/routing/routs.dart';
 
 import 'package:stylish_demo/core/theme/appcolors.dart';
 import 'package:stylish_demo/core/theme/styles.dart';
@@ -15,6 +17,7 @@ import 'package:stylish_demo/fetuers/home/ui/widgets/nav_bar.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/new_arrivals.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/remainder_card.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/deal_of_the_day_shoping_card.dart';
+import 'package:stylish_demo/fetuers/home/data/models/product_model.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/sort_and_filter.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/spcial_offer.dart';
 import 'package:stylish_demo/fetuers/home/ui/widgets/sponserd.dart';
@@ -33,6 +36,23 @@ class _HomeScreenState extends State<HomeScreen> {
   void onItemTapped(int index) {
     setState(() {
       navIndex = index;
+    });
+  }
+
+  List<Product> cart = [];
+
+  void addToCart(Product product) {
+    setState(() {
+      if (!cart.any((item) => item.title == product.title)) {
+        cart.add(product);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('${product.title} added to cart')),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('${product.title} is already in the cart')),
+        );
+      }
     });
   }
 
@@ -80,18 +100,21 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         onPressed: () {
-          onItemTapped(2);
+          Navigator.pushNamed(
+            context,
+            Routes.cartScreen, // لازم تكون عامله في routes
+            arguments: cart,
+          );
         },
-
         backgroundColor: Colors.white,
         elevation: 4,
-
         child: Icon(
           Icons.shopping_cart_outlined,
           color: navIndex == 2 ? const Color(0xffEB3030) : Colors.black,
           size: 24.sp,
         ),
       ),
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: NavBar(currentIndex: navIndex, onTap: onItemTapped),
       body: SafeArea(
@@ -100,14 +123,12 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                /// 🔹 AppBar مخصص للهوم
                 AppHomeScreenBar(),
 
                 Padding(
                   padding: EdgeInsets.all(16.r),
                   child: Column(
                     children: [
-                      /// 🔍 Search bar
                       AppTextFormField(
                         hintText: 'Search any Product..',
                         prefixIcon: Icons.search,
@@ -165,7 +186,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   top: 112.r,
                                   left: 14.r,
                                   child: OutlinedButton.icon(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      context.pushNamed(
+                                        Routes.viweAllProductsScreen,
+                                      );
+                                    },
                                     style: OutlinedButton.styleFrom(
                                       side: const BorderSide(
                                         color: Colors.white,
@@ -225,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       16.verticalSpace,
                       // shoping card
                       SizedBox(
-                        height: 250,
+                        height: 270.h,
                         child: BlocBuilder<HomeCubit, HomeState>(
                           builder: (context, state) {
                             if (state is HomeProductsLoading) {
@@ -237,15 +262,26 @@ class _HomeScreenState extends State<HomeScreen> {
                               return ListView.separated(
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (BuildContext context, int index) {
-                                  return DealOfTheDayShopingCard(
-                                    image: products[index].image,
-                                    title: products[index].title,
-                                    description: products[index].description,
-                                    price: products[index].price,
-                                    oldPrice: products[index].oldPrice,
-                                    discount: products[index].discount,
-                                    numberOfReview:
-                                        products[index].numberOfReviews,
+                                  return GestureDetector(
+                                    onTap: () {
+                                      context.pushNamed(
+                                        Routes.shopPageScreen,
+                                        arguments: products[index],
+                                      );
+                                    },
+                                    child: DealOfTheDayShopingCard(
+                                      image: products[index].image,
+                                      title: products[index].title,
+                                      description: products[index].description,
+                                      price: products[index].price,
+                                      oldPrice: products[index].oldPrice,
+                                      discount: products[index].discount,
+                                      numberOfReview:
+                                          products[index].numberOfReviews,
+                                      onAddToCart: () {
+                                        addToCart(products[index]);
+                                      },
+                                    ),
                                   );
                                 },
                                 separatorBuilder:
@@ -283,7 +319,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       16.verticalSpace,
                       SizedBox(
-                        height: 189.h,
+                        height: 220.h,
                         child: BlocBuilder<HomeCubit, HomeState>(
                           builder: (context, state) {
                             if (state is HomeProductsLoading) {
@@ -301,16 +337,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
                               return ListView.separated(
                                 itemBuilder: (BuildContext context, int index) {
-                                  final product =
-                                      products[index +
-                                          4]; // يبدأ بعد أول 3 عناصر
-                                  return TreandingShopingCard(
-                                    image: product.image,
-                                    title: product.title,
-                                    description: product.description,
-                                    price: product.price,
-                                    oldPrice: product.oldPrice,
-                                    discount: product.discount,
+                                  final product = products[index + 4];
+                                  return GestureDetector(
+                                    onTap: () {
+                                      context.pushNamed(
+                                        Routes.shopPageScreen,
+                                        arguments: product,
+                                      );
+                                    },
+
+                                    child: TreandingShopingCard(
+                                      image: product.image,
+                                      title: product.title,
+                                      description: product.description,
+                                      price: product.price.toString(),
+                                      oldPrice: product.oldPrice.toString(),
+                                      discount: product.discount.toString(),
+                                      onAddToCart: () {
+                                        // هنا تستدعي function تضيف المنتج للكارت
+                                        addToCart(product);
+                                      },
+                                    ),
                                   );
                                 },
                                 separatorBuilder:

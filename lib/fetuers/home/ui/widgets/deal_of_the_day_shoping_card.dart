@@ -13,6 +13,7 @@ class DealOfTheDayShopingCard extends StatelessWidget {
   final double? rate;
   final String numberOfReview;
 
+  final VoidCallback onAddToCart;
   const DealOfTheDayShopingCard({
     super.key,
     required this.image,
@@ -23,6 +24,7 @@ class DealOfTheDayShopingCard extends StatelessWidget {
     required this.discount,
     this.rate,
     required this.numberOfReview,
+    required this.onAddToCart,
   });
 
   @override
@@ -87,6 +89,24 @@ class DealOfTheDayShopingCard extends StatelessWidget {
               ),
               Text(numberOfReview, style: TextStyles.font10w400lightGray),
             ],
+          ),
+          8.verticalSpace,
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: onAddToCart,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black,
+                padding: EdgeInsets.symmetric(vertical: 6.h),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6.r),
+                ),
+              ),
+              child: const Text(
+                "Add to Cart",
+                style: TextStyle(color: Colors.white, fontSize: 12),
+              ),
+            ),
           ),
         ],
       ),

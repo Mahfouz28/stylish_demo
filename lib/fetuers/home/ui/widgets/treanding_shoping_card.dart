@@ -12,6 +12,9 @@ class TreandingShopingCard extends StatelessWidget {
   final double? rate;
   final String? numberOfReview;
 
+  /// callback علشان تبعت المنتج وتضيفه للسلة
+  final VoidCallback onAddToCart;
+
   const TreandingShopingCard({
     super.key,
     required this.image,
@@ -22,6 +25,7 @@ class TreandingShopingCard extends StatelessWidget {
     required this.discount,
     this.rate,
     this.numberOfReview,
+    required this.onAddToCart,
   });
 
   @override
@@ -29,7 +33,7 @@ class TreandingShopingCard extends StatelessWidget {
     return Container(
       width: 142.w,
 
-      decoration: BoxDecoration(color: Colors.white),
+      decoration: const BoxDecoration(color: Colors.white),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,8 +43,8 @@ class TreandingShopingCard extends StatelessWidget {
             width: 142.w,
             height: 100.h,
             child: ClipRRect(
-              borderRadius: BorderRadiusGeometry.circular(4.r),
-              child: Image.network(image),
+              borderRadius: BorderRadius.circular(4.r),
+              child: Image.network(image, fit: BoxFit.cover),
             ),
           ),
           8.verticalSpace,
@@ -57,7 +61,6 @@ class TreandingShopingCard extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           Text('₹$price', style: TextStyles.font12w500Black),
-
           Row(
             children: [
               Text(
@@ -67,8 +70,27 @@ class TreandingShopingCard extends StatelessWidget {
                 ),
               ),
               8.horizontalSpace,
-              Text('$discount%Off', style: TextStyles.font10w400LightRed),
+              Text('$discount% Off', style: TextStyles.font10w400LightRed),
             ],
+          ),
+          8.verticalSpace,
+
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: onAddToCart,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black,
+                padding: EdgeInsets.symmetric(vertical: 6.h),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6.r),
+                ),
+              ),
+              child: const Text(
+                "Add to Cart",
+                style: TextStyle(color: Colors.white, fontSize: 12),
+              ),
+            ),
           ),
         ],
       ),

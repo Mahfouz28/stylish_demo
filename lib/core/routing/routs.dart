@@ -10,4 +10,5 @@ class Routes {
   static const String shopPageScreen = '/shopPageScreen';
   static const String checkoutScreen = '/checkoutScreen';
   static const String paymentScreen = '/paymentScreen';
+  static const String cartScreen = '/cartScreen';
 }

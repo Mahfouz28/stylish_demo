@@ -63,6 +63,9 @@ class _ShopPageScreenState extends State<ShopPageScreen> {
                 Row(
                   children: [
                     GestureDetector(
+                      onTap: () {
+                        context.pushNamed(Routes.cartScreen);
+                      },
                       child: CustomBottons(
                         icon: Icons.shopping_cart_outlined,
 
