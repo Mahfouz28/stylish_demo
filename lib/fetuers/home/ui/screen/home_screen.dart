@@ -46,11 +46,57 @@ class _HomeScreenState extends State<HomeScreen> {
       if (!cart.any((item) => item.title == product.title)) {
         cart.add(product);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${product.title} added to cart')),
+          SnackBar(
+            content: Row(
+              children: [
+                const Icon(Icons.check_circle, color: AppColors.white),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    '${product.title} added to cart',
+                    style: const TextStyle(
+                      color: AppColors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            backgroundColor: AppColors.kPrimaryColor,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            margin: const EdgeInsets.all(12),
+            duration: const Duration(seconds: 2),
+          ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${product.title} is already in the cart')),
+          SnackBar(
+            content: Row(
+              children: [
+                const Icon(Icons.check_circle, color: AppColors.white),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    '${product.title} is already added to cart',
+                    style: const TextStyle(
+                      color: AppColors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            backgroundColor: AppColors.kPrimaryColor,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            margin: const EdgeInsets.all(12),
+            duration: const Duration(seconds: 2),
+          ),
         );
       }
     });
