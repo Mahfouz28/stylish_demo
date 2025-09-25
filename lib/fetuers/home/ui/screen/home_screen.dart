@@ -76,11 +76,11 @@ class _HomeScreenState extends State<HomeScreen> {
           SnackBar(
             content: Row(
               children: [
-                const Icon(Icons.check_circle, color: AppColors.white),
+                const Icon(Icons.info, color: AppColors.white),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    '${product.title} is already added to cart',
+                    '${product.title} is already in the cart',
                     style: const TextStyle(
                       color: AppColors.white,
                       fontWeight: FontWeight.bold,
@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            backgroundColor: AppColors.kPrimaryColor,
+            backgroundColor: AppColors.lightGray, // لون محايد للتحذير
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
