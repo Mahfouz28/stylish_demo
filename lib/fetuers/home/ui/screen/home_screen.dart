@@ -296,7 +296,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       16.verticalSpace,
                       // shoping card
                       SizedBox(
-                        height: 270.h,
+                        height: 300.h,
                         child: BlocBuilder<HomeCubit, HomeState>(
                           builder: (context, state) {
                             if (state is HomeProductsLoading) {
@@ -365,7 +365,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       16.verticalSpace,
                       SizedBox(
-                        height: 220.h,
+                        height: 300.h,
                         child: BlocBuilder<HomeCubit, HomeState>(
                           builder: (context, state) {
                             if (state is HomeProductsLoading) {

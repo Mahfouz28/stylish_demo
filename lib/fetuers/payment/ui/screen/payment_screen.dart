@@ -4,6 +4,7 @@ import 'package:stylish_demo/core/theme/appcolors.dart';
 import 'package:stylish_demo/core/theme/styles.dart';
 import 'package:stylish_demo/fetuers/home/data/models/product_model.dart';
 import 'package:stylish_demo/fetuers/payment/ui/widgets/payment_app_bar.dart';
+import 'package:stylish_demo/fetuers/payment/ui/widgets/paymob_web_view.dart';
 
 class PaymentScreen extends StatelessWidget {
   final Product product;
@@ -159,6 +160,8 @@ class PaymentScreen extends StatelessWidget {
   }
 
   Widget _buildPaymentMethod(BuildContext context, String title) {
+    final VoidCallback? onClick;
+
     return InkWell(
       borderRadius: BorderRadius.circular(12.r),
       onTap: () {
@@ -188,8 +191,18 @@ class PaymentScreen extends StatelessWidget {
                   ),
                   onPressed: () {
                     Navigator.pop(context);
-                    // TODO: handle payment logic
+
+                    // افتح صفحة Paymob
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => PaymobWebView(
+                          paymentUrl: "https://paymob.xyz/tnt5bhEg/",
+                        ),
+                      ),
+                    );
                   },
+
                   child: Text("Confirm", style: TextStyles.font12w400white),
                 ),
               ],
